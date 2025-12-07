@@ -1,35 +1,35 @@
 // src/services/authService.ts
-import axios from "axios";
+// Không cần import axios trực tiếp nữa, chỉ cần import instance 'api'
 import api from "./api";
 
-const API_URL = "http://localhost:8080/api/auth";
-
 export const authService = {
-  // Đăng nhập, trả về JWT token
-  login: async (username: string, password: string) => {
-    const response = await axios.post(
-      `${API_URL}/login`,
-      { username, matkhau: password },
-      { withCredentials: true } // quan trọng để gửi cookie nếu backend set HttpOnly cookie
-    );
-    return response.data; // thường là token hoặc thông tin user
-  },
+  // Đăng nhập, trả về JWT token
+  login: async (username: string, password: string) => {
+    const response = await api.post(
+      "/api/auth/login", // Đường dẫn tương đối: sẽ ghép với baseURL đã cấu hình
+      { username, matkhau: password },
+      { withCredentials: true } 
+    );
+    return response.data; // thường là token hoặc thông tin user
+  },
 
-  // Đăng xuất
-  logout: async () => {
-    await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
-  },
+  // Đăng xuất
+  logout: async () => {
+    // SỬA: Dùng 'api.post'
+    await api.post("/api/auth/logout", {}, { withCredentials: true });
+  },
 
-  // Lấy refresh token nếu có
-  refreshToken: async () => {
-    const response = await axios.post(`${API_URL}/refresh-token`, {}, { withCredentials: true });
-    return response.data;
-  },
+  // Lấy refresh token nếu có
+  refreshToken: async () => {
+    // SỬA: Dùng 'api.post'
+    const response = await api.post("/api/auth/refresh", {}, { withCredentials: true });
+    return response.data;
+  },
 
-  // Lấy mã nhân viên hiện tại
-  // Lấy mã nhân viên, token tự động được gắn bởi interceptor
-  getMaNhanVien: async (): Promise<string> => {
-    const response = await api.get("/api/auth/me/manv");
-    return response.data;
-  }
+  // Lấy mã nhân viên hiện tại
+  // Lấy mã nhân viên, token tự động được gắn bởi interceptor
+  getMaNhanVien: async (): Promise<string> => {
+    const response = await api.get("/api/auth/me/manv");
+    return response.data;
+  }
 };
