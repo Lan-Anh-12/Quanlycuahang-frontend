@@ -1,10 +1,14 @@
 // src/services/api.ts
 import axios from "axios";
 
-const BASE_URL: string = (process.env.REACT_APP_API_URL as string) || "http://localhost:8080";
+// ĐIỀU CHỈNH: Sử dụng cú pháp chuẩn của Vite: import.meta.env
+// Giá trị này sẽ là "https://quanlycuahang-backend-production.up.railway.app" trên Vercel
+const BASE_URL: string = (import.meta.env.VITE_API_BASE_URL as string) || "http://localhost:8080";
+
+// (Bạn không cần khối if kiểm tra lỗi nữa vì BASE_URL luôn có giá trị)
 
 const api = axios.create({
-  // 2. Chỉ truyền BASE_URL đã được xác định
+  // Sử dụng biến đã được xác định
   baseURL: BASE_URL,
 });
 
