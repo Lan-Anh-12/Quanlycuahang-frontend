@@ -3,7 +3,7 @@ import axios from "axios";
 
 // ĐIỀU CHỈNH: Sử dụng cú pháp chuẩn của Vite: import.meta.env
 // Giá trị này sẽ là "https://quanlycuahang-backend-production.up.railway.app" trên Vercel
-const BASE_URL: string = (import.meta.env.VITE_API_BASE_URL as string) || "http://localhost:8080";
+const BASE_URL: string = (import.meta.env.VITE_API_BASE_URL as string) ;
 
 // (Bạn không cần khối if kiểm tra lỗi nữa vì BASE_URL luôn có giá trị)
 
