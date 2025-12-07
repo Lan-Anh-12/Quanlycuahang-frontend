@@ -1,8 +1,11 @@
 // src/services/api.ts
 import axios from "axios";
 
+const BASE_URL: string = (process.env.REACT_APP_API_URL as string) || "http://localhost:8080";
+
 const api = axios.create({
-  baseURL: "http://localhost:8080",
+  // 2. Chỉ truyền BASE_URL đã được xác định
+  baseURL: BASE_URL,
 });
 
 // Interceptor tự động gắn token nếu có
